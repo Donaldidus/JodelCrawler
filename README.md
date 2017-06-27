@@ -1,0 +1,1 @@
+A small crawler that uses the python package jodel_api to extract data from the jodel servers and save it locally in a csv file.
