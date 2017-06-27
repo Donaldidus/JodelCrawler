@@ -1,0 +1,13 @@
+# Directories
+data/
+jodel/
+accounts/
+__pycache__/
+bin/
+.idea/
+
+# Files
+stats.csv
+
+blabla.py
+test.py
