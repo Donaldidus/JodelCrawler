@@ -42,7 +42,7 @@ while True:
             account.fetch_new_posts()
             path = data_dir + account.city + '.csv'
             post_count += len(account.tracked_posts[0])
-            account.drop_latest_tracked_posts(path=path)
+            account.save_batch(path=path)
 
     current_time = time.time()
     if current_time > reset_time:
