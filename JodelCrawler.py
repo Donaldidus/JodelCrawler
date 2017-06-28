@@ -9,7 +9,7 @@ class JodelCrawlAcc(jodel_api.JodelAccount):
         self.city = city
 
         # create instance variables
-        # batch size is the amount of jodels that will be fetched at once
+        # batch size is the amount of jodel that will be fetched at once
         self.batch_size = batch_size
         self.tracked_posts = []
         self.debug = debug
@@ -46,7 +46,7 @@ class JodelCrawlAcc(jodel_api.JodelAccount):
         # check that tracked_posts contains posts
         if self.tracked_posts:
             # refresh post details before saving
-            self._refresh_tracked_posts(index=-1)
+            self._refresh_tracked_posts(index=0)
             posts = self.tracked_posts[0]
             posts = reversed(posts)
             # reverse list so latest post is always at the bottom of the file
@@ -59,22 +59,21 @@ class JodelCrawlAcc(jodel_api.JodelAccount):
                 # array of post_ids already saved in the file to avoid duplicates
                 saved_posts = []
 
-                for i, row in enumerate(reader):
-                    if i <= self.batch_size:
-                        break
-                    else:
+                for row in reader:
                         saved_posts.append(row[0])
 
-                for post in posts:
-                    for i, row in enumerate(reader):
-                        if i <= self.batch_size:
+                while len(saved_posts) > self.batch_size:
+                    saved_posts.pop(0)
 
+                saved_posts = reversed(saved_posts)
+
+                for post in posts:
                     # filter images and empty posts
                     if 'image_url' not in post.keys() and post['message'] != '':
-
-                        # save post data to file
-                        writer.writerow([post['post_id'], post['created_at'], post['message'], post['color'],
-                                         post['vote_count'], post['pin_count'], post['child_count']])
+                        if not post['post_id'] in saved_posts:
+                            # save post data to file
+                            writer.writerow([post['post_id'], post['created_at'], post['message'], post['color'],
+                                             post['vote_count'], post['pin_count'], post['child_count']])
 
             # delete the posts from memory that have been saved to disk
-            self.tracked_posts.pop(-1)
+            self.tracked_posts.pop(0)
