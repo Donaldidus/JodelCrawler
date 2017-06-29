@@ -3,10 +3,11 @@ import sqlite3
 import pickle
 import os
 import time
+import directories
 
-main_dir = ''
-account_dir = main_dir + 'accounts/'
-data_base_dir = main_dir + 'data/database.db'
+main_dir = directories.main_dir
+account_dir = directories.account_dir
+data_base_dir = directories.data_base_dir
 
 batch_size = 100
 
@@ -38,11 +39,12 @@ for account in jodel_accounts:
 connection = sqlite3.connect(database=data_base_dir)
 
 with connection:
+    cursor = connection.cursor()
     # create table if none exists
-    connection.execute("CREATE TABLE IF NOT EXISTS posts (post_id text UNIQUE, fetched_at int, city text, "
+    cursor.execute("CREATE TABLE IF NOT EXISTS posts (post_id text UNIQUE, fetched_at int, city text, "
                        "created_at text, message text, color text, vote_count int, pin_count int, child_count int)")
 
     # save all the posts to the database
-    connection.executemany("INSERT OR IGNORE INTO posts VALUES(?,?,?,?,?,?,?,?,?)", posts_for_database)
+    cursor.executemany("INSERT OR IGNORE INTO posts VALUES(?,?,?,?,?,?,?,?,?)", posts_for_database)
 
     connection.commit()
