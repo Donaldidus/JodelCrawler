@@ -1,7 +1,9 @@
 import pickle
 from JodelCrawler import JodelCrawlAcc
 
-cities = [{'lat': 11.567867, 'lng': 13.408333, 'city': "Berlin"},
+# {'lat': 11.567867, 'lng': 13.408333, 'city': "Berlin"},
+
+cities = [
           {'lat': 53.550556, 'lng': 9.993333, 'city': "Hamburg"},
           {'lat': 48.148434, 'lng': 11.567867, 'city': "Munich"},
           {'lat': 50.933333, 'lng': 6.950000, 'city': "Cologne"},
@@ -36,10 +38,11 @@ cities = [{'lat': 11.567867, 'lng': 13.408333, 'city': "Berlin"},
 
 accounts = []
 
-# accounts.append(JodelCrawlAcc(city=cities[7]['city'], lat=cities[7]['lat'], lng=cities[7]['lng']))
-
+accounts.append(JodelCrawlAcc(city=cities[7]['city'], lat=cities[7]['lat'], lng=cities[7]['lng']))
+'''
 for city in cities:
     accounts.append(JodelCrawlAcc(city=city['city'], lat=city['lat'], lng=city['lng'], debug=True))
+'''
 
 for account in accounts:
     file_path = 'accounts/' + account.city + '.pickle'

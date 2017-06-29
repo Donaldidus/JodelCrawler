@@ -11,3 +11,6 @@ stats.csv
 
 blabla.py
 test.py
+
+# all database files
+*.db

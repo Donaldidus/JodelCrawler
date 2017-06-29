@@ -23,7 +23,6 @@ jodl_accs = []
 for account_file in os.listdir(account_dir):
     if account_file.endswith('.pickle'):
         acc = pickle.load(open(account_dir + account_file, 'rb'))
-        # acc.racks = 1
         path = data_dir + acc.city + '.csv'
         if os.path.isfile(path):
             with open(path, 'r', newline='', encoding='utf-8') as file:
