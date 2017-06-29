@@ -10,7 +10,9 @@ account = jodel_api.JodelAccount(48.148434, 11.567867, "Munich")
 # the time from that on the details get refreshed
 refresh_time_limit = int(time.time()) - 20 * 60 * 60
 
+# total number of posts that are staged for refreshing
 total_refresh_attempts = 0
+# total number of posts where refreshing failed (e.g. post got deleted by user)
 failed_refresh_attempts = 0
 
 connection = sqlite3.connect(directories.data_base_dir)
@@ -41,6 +43,7 @@ with connection:
 
     connection.commit()
 
+# saving some stats to the log file for better tracking
 with open(directories.log_file, 'a') as file:
     log_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     all_refreshes = 'total refreshed posts ' + str(total_refresh_attempts)
