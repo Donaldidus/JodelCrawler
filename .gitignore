@@ -5,9 +5,13 @@ accounts/
 __pycache__/
 bin/
 .idea/
+deprecated/
 
 # Files
-stats.csv
+log.txt
 
 blabla.py
 test.py
+
+# all database files
+*.db
