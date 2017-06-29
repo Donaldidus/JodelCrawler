@@ -3,6 +3,7 @@ import sqlite3
 import time
 import datetime
 import directories
+import os
 
 account = jodel_api.JodelAccount(48.148434, 11.567867, "Munich")
 
@@ -48,4 +49,4 @@ with open(directories.log_file, 'a') as file:
     log_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     all_refreshes = 'total refreshed posts ' + str(total_refresh_attempts)
     failed_refreshes = 'total failed refresh attempts ' + str(failed_refresh_attempts)
-    file.write("{} -- {} -- {} \n".format(log_time, all_refreshes, failed_refreshes))
+    file.write("{} -- {} -- {}".format(log_time, all_refreshes, failed_refreshes) + os.linesep)

@@ -37,19 +37,20 @@ for account in jodel_accounts:
                     except KeyError:
                         with open(directories.log_file, 'a') as file:
                             log_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                            file.write("{} -- KeyError while extracting jodel data \n".format(log_time))
+                            file.write("{} -- KeyError while extracting jodel data".format(log_time) + os.linesep)
 
         # in case of unauthorized error the account token has to be refreshed (see jodel_api docs for more info)
         elif posts[0] == 401:
             account.refresh_access_token()
             with open(directories.log_file, 'a') as file:
                 log_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                file.write("Refreshing account token for Account {}. Error Code {} \n".format(account.city, posts[0]))
+                file.write("Refreshing account token for Account {}. Error Code {}".format(account.city, posts[0]) +
+                           os.linesep)
         else:
             # received any other error code, save to log file
             with open(directories.log_file, 'a') as file:
                 log_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                file.write("Failed to fetch new posts. Error Code {} \n".format(posts[0]))
+                file.write("Failed to fetch new posts. Error Code {}".format(posts[0]) + os.linesep)
             print('Failed to fetch new posts. Error Code', posts[0])
 
 # open connection to database
