@@ -38,11 +38,10 @@ cities = [
 
 accounts = []
 
-accounts.append(JodelCrawlAcc(city=cities[7]['city'], lat=cities[7]['lat'], lng=cities[7]['lng']))
-'''
+# accounts.append(JodelCrawlAcc(city=cities[7]['city'], lat=cities[7]['lat'], lng=cities[7]['lng']))
+
 for city in cities:
-    accounts.append(JodelCrawlAcc(city=city['city'], lat=city['lat'], lng=city['lng'], debug=True))
-'''
+    accounts.append(JodelCrawlAcc(city=city['city'], lat=city['lat'], lng=city['lng']))
 
 for account in accounts:
     file_path = 'accounts/' + account.city + '.pickle'

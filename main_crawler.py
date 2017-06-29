@@ -3,6 +3,7 @@ import sqlite3
 import pickle
 import os
 import time
+import datetime
 import directories
 
 main_dir = directories.main_dir
@@ -19,15 +20,21 @@ for account_file in os.listdir(account_dir):
         acc = pickle.load(open(account_dir + account_file, 'rb'))
         jodel_accounts.append(acc)
 
-
 for account in jodel_accounts:
     if isinstance(account, JodelCrawler.JodelCrawlAcc):
         posts = account.get_posts_recent(skip=0, limit=batch_size)
         if posts[0] == 200:
-            for post in posts:
-                processed_post = [post['post_id'], int(time.time()), account.city, post['created_at'], post['message'],
-                                  post['color'], post['vote_count'], post['pin_count'], post['child_count']]
-                posts_for_database.append(processed_post)
+            for post in posts[1]['posts']:
+                if 'image_url' not in post.keys() and post['message'] != '':
+                    try:
+                        processed_post = [post['post_id'], int(time.time()), account.city, post['created_at'],
+                                          post['message'], post['color'], post['vote_count'], post['pin_count'],
+                                          post['child_count']]
+                        posts_for_database.append(processed_post)
+                    except KeyError:
+                        with open(directories.log_file, 'a') as file:
+                            log_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                            file.write("{} -- KeyError while extracting jodel data\n".format(log_time))
 
         elif posts[0] == 401:
             account.refresh_access_token()

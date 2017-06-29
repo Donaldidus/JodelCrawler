@@ -6,6 +6,7 @@ import directories
 
 account = jodel_api.JodelAccount(48.148434, 11.567867, "Munich")
 
+# refreshing takes quite some time that's why it is wise to focus on recent data
 # the time from that on the details get refreshed
 refresh_time_limit = int(time.time()) - 20 * 60 * 60
 
@@ -40,8 +41,8 @@ with connection:
 
     connection.commit()
 
-with open(directories.log_file, 'a', newline='') as file:
+with open(directories.log_file, 'a') as file:
     log_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     all_refreshes = 'total refreshed posts ' + str(total_refresh_attempts)
     failed_refreshes = 'total failed refresh attempts ' + str(failed_refresh_attempts)
-    file.write("{} -- {} -- {}".format(log_time, all_refreshes, failed_refresh_attempts))
+    file.write("{} -- {} -- {} \n".format(log_time, all_refreshes, failed_refreshes))
