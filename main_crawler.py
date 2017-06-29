@@ -37,7 +37,7 @@ for account in jodel_accounts:
                     except KeyError:
                         with open(directories.log_file, 'a') as file:
                             log_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                            file.write("{} -- KeyError while extracting jodel data\n".format(log_time))
+                            file.write("{} -- KeyError while extracting jodel data \n".format(log_time))
 
         # in case of unauthorized error the account token has to be refreshed (see jodel_api docs for more info)
         elif posts[0] == 401:
