@@ -1,6 +1,6 @@
 # JodelCrawler
 
-A small crawler that tracks posts from the Jodel App and saves them in a database.
+A small crawler that tracks posts from the Jodel App and saves them in a sqlite database.
 
 ## Usage
 ### Installation
