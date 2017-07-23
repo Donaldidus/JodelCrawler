@@ -23,6 +23,7 @@ for account_file in os.listdir(account_dir):
 
 for account in jodel_accounts:
     if isinstance(account, JodelCrawler.JodelCrawlAcc):
+        account.refresh_all_tokens()
         posts = account.get_posts_recent(skip=0, limit=batch_size)
         if posts[0] == 200:
             for post in posts[1]['posts']:

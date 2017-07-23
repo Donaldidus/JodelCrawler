@@ -10,6 +10,7 @@ import directories
 for account_file in os.listdir(directories.account_dir):
     if account_file.endswith('.pickle'):
         account = pickle.load(open(directories.account_dir + account_file, 'rb'))
+        account.refresh_all_tokens()
         break
 
 # refreshing takes quite some time that's why it is wise to focus on recent data
