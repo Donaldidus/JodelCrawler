@@ -42,15 +42,16 @@ for account in jodel_accounts:
         # in case of unauthorized error the account token has to be refreshed (see jodel_api docs for more info)
         elif posts[0] == 401:
             account.refresh_access_token()
+            account.refresh_all_tokens()
             with open(directories.log_file, 'a') as file:
                 log_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                file.write("Refreshing account token for Account {}. Error Code {}".format(account.city, posts[0]) +
-                           os.linesep)
+                file.write("{} Refreshing account token for Account {}. Error Code {}".format(log_time, account.city,
+                                                                                              posts[0]) + os.linesep)
         else:
             # received any other error code, save to log file
             with open(directories.log_file, 'a') as file:
                 log_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                file.write("Failed to fetch new posts. Error Code {}".format(posts[0]) + os.linesep)
+                file.write("{} Failed to fetch new posts. Error Code {}".format(log_time, posts[0]) + os.linesep)
             print('Failed to fetch new posts. Error Code', posts[0])
 
 # open connection to database

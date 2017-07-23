@@ -4,12 +4,17 @@ import time
 import datetime
 import directories
 import os
+import pickle
+import directories
 
-account = jodel_api.JodelAccount(48.148434, 11.567867, "Munich")
+for account_file in os.listdir(directories.account_dir):
+    if account_file.endswith('.pickle'):
+        account = pickle.load(open(directories.account_dir + account_file, 'rb'))
+        break
 
 # refreshing takes quite some time that's why it is wise to focus on recent data
 # the time from that on the details get refreshed
-refresh_time_limit = int(time.time()) - 20 * 60 * 60
+refresh_time_limit = int(time.time()) - 24 * 60 * 60
 
 # total number of posts that are staged for refreshing
 total_refresh_attempts = 0
